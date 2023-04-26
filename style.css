@@ -1,10 +1,65 @@
+html,
+body {
+  font-family: sans-serif;
+}
+
+#title {
+  font-size: 56px;
+}
+
+.sectionTitles {
+  transform: translateY(-50px);
+}
+
+.sectionTitle {
+  position: relative;
+  display: block;
+  text-transform: uppercase;
+}
+
+.sectionTitle.active {
+  color: orange;
+}
+.sectionTitle.active::after {
+  top: 5px;
+  transform: rotate(-90deg);
+}
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
+  background: url(../img/arrow-right.svg) center center no-repeat;
+  top: 0.55em;
+  background: url("https://www.kerrylogistics.com/assets/img/arrow-mobile-menu-down.svg")
+    no-repeat;
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@media (max-width: 1268px) {
+  #alignment {
+    display: none;
+  }
+  .sectionTitles {
+    transform: translateY(0);
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .sectionTitle {
+    font-size: 25px;
+  }
+}
+
 .grid-container {
   display: grid;
-  height: 80vh;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
+  height: calc(100vh - 80px);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: repeat(2, 1fr);
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 .item1 {
   grid-column-start: 1;
@@ -13,15 +68,23 @@
   grid-row-end: 3;
 }
 
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
 .grid-container > div {
   border: 1px solid white;
-  text-align: center;
-  padding: 20px 0;
   font-size: 30px;
 }
 
 .item {
+  color: #fff;
   background: transparent;
+  position: relative;
 }
 
 @media (max-width: 1268px) {
@@ -39,11 +102,154 @@
   }
 }
 @media (min-width: 1268px) {
-  .item:hover {
+  .product:hover .overlay,
+  .industry:hover .overlay {
+    opacity: 1;
+    transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .product:hover .image,
+  .industry:hover .image {
+    display: none;
+  }
+}
+
+.product,
+.industry {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 20px;
+}
+
+.item:not(:first-of-type):nth-child(-n + 5)::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  background: orange;
+  border-radius: 50%;
+}
+
+@media (min-width: 1268px) {
+  .item:nth-child(5)::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    bottom: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
     background: orange;
+    border-radius: 50%;
+  }
+}
+
+@media (max-width: 1268px) {
+  .item:last-child::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    bottom: -20px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    background: orange;
+    border-radius: 50%;
+  }
+}
+
+@media (max-width: 1268px) {
+  .item:nth-child(even)::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background: orange;
+    border-radius: 50%;
+  }
+  .item:not(:first-of-type):nth-child(-n + 5)::before {
+    content: "";
+    display: none;
+  }
+}
+
+.title {
+  position: relative;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+.image {
+  margin-top: 20px;
+  display: block;
+}
+
+.overlay {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(255, 166, 0, 0.7);
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all cubic-bezier(0.47, 0, 0.745, 0.715) 0.3s;
+}
+
+.overlay__bottom {
+  width: 100%;
+
+  display: flex;
+  align-self: flex-end;
+  justify-content: space-between;
+}
+
+.overlay__top {
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.5;
+  margin-top: 50px;
+  z-index: 3;
+}
+
+.overlay__bottom a {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 2060px) {
+  .title {
+    font-size: 20px;
+  }
+  .overlay__bottom a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .overlay__top {
+    font-size: 15px;
   }
 }
 
 .hide {
   display: none;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
